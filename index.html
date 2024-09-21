@@ -1,0 +1,732 @@
+<html><head><base href="https://windows-simulation.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParaMiPrincesaHermosa</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Roboto&display=swap');
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Roboto', sans-serif;
+    }
+    .desktop {
+        background: linear-gradient(45deg, #8E2DE2, #4A00E0, #8E2DE2);
+        animation: gradientBG 15s ease infinite;
+        background-size: 400% 400%;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+    }
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .taskbar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background-color: rgba(25, 25, 25, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        z-index: 999;
+    }
+    .folder-icon {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 80px;
+        height: 80px;
+        background-image: url('https://i.postimg.cc/PJf1twmy/imagen-2024-09-21-144039775-removebg-preview-2.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .folder-icon:hover {
+        transform: translateY(-5px);
+        filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.2));
+    }
+    .folder-name {
+        position: absolute;
+        top: 110px;
+        left: 20px;
+        width: 80px;
+        text-align: center;
+        color: white;
+        font-size: 14px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .capybara-icon {
+        position: absolute;
+        top: 20px;
+        left: 120px;
+        width: 80px;
+        height: 80px;
+        background-image: url('https://i.postimg.cc/fRWWBvMB/imagen-2024-09-21-145454647-removebg-preview.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .capybara-icon:hover {
+        transform: translateY(-5px);
+        filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.2));
+    }
+    .capybara-name {
+        position: absolute;
+        top: 110px;
+        left: 120px;
+        width: 80px;
+        text-align: center;
+        color: white;
+        font-size: 14px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .music-icon {
+        position: absolute;
+        top: 20px;
+        left: 220px;
+        width: 80px;
+        height: 80px;
+        background-image: url('https://i.postimg.cc/9Q84TQv8/97461554-f5cc-4a79-a3a7-946044150a4d-removebg-preview.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .music-icon:hover {
+        transform: translateY(-5px);
+        filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.2));
+    }
+    .music-name {
+        position: absolute;
+        top: 110px;
+        left: 220px;
+        width: 80px;
+        text-align: center;
+        color: white;
+        font-size: 14px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .notepad-icon {
+        position: absolute;
+        top: 220px;
+        left: 120px;
+        width: 80px;
+        height: 80px;
+        background-image: url('https://i.postimg.cc/7P9qbWvX/cd6b2406-c93a-4f60-8444-0709a4aefc85-removebg-preview.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .notepad-icon:hover {
+        transform: translateY(-5px);
+        filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.2));
+    }
+    .notepad-name {
+        position: absolute;
+        top: 310px;
+        left: 120px;
+        width: 80px;
+        text-align: center;
+        color: white;
+        font-size: 14px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .photo-window {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 1000px;
+        height: 90%;
+        max-height: 700px;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+    .music-window {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 1200px;
+        height: 90%;
+        max-height: 700px;
+        background: linear-gradient(135deg, #2b0a3d, #6b238e, #9932cc);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+    .music-window-header {
+        background: linear-gradient(to right, #4a0e4e, #8e44ad);
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    .music-content {
+        padding: 20px;
+        height: calc(100% - 50px);
+        overflow-y: auto;
+    }
+    .notepad-window {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 600px;
+        height: 90%;
+        max-height: 400px;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+    .notepad-window-header {
+        background-color: #4A00E0;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .notepad-content {
+        padding: 20px;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        color: #333;
+    }
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
+    }
+    .video-item {
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .video-item iframe {
+        width: 100%;
+        height: 200px;
+        border: none;
+    }
+    .video-info {
+        padding: 1rem;
+    }
+    .video-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+        color: #f0e6ff;
+    }
+    .video-channel {
+        font-size: 0.9rem;
+        color: #d1c4e9;
+    }
+    .photo-window-header {
+        background-color: #8E2DE2;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .close-button {
+        cursor: pointer;
+        font-size: 20px;
+    }
+    .photo-content, .music-content {
+        padding: 20px;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        scroll-behavior: smooth;
+    }
+    .photo-item, .video-item {
+        width: calc(100% - 20px);
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    .photo-item:hover, .video-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    .photo-item img, .video-item iframe {
+        max-width: 100%;
+        max-height: 200px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    .photo-item .poem, .video-item .video-info {
+        width: 100%;
+        text-align: center;
+    }
+    .photo-item .poem h3, .video-item .video-title {
+        font-family: 'Playfair Display', serif;
+        color: #4A00E0;
+        margin-bottom: 10px;
+    }
+    .photo-item .poem p, .video-item .video-channel {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        color: #333;
+        line-height: 1.6;
+    }
+    .heart {
+        position: absolute;
+        font-size: 20px;
+        animation: floatUp 5s ease-in-out infinite;
+        opacity: 0.7;
+        bottom: -20px;
+    }
+    @keyframes floatUp {
+        0% { transform: translateY(0); opacity: 0.7; }
+        100% { transform: translateY(-100vh); opacity: 0; }
+    }
+    .flying-image {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+        opacity: 0;
+        animation: flyOut 1s ease-out forwards;
+    }
+    @keyframes flyOut {
+        0% {
+            transform: translate(20px, 20px) scale(0.1);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translate(var(--tx), var(--ty)) scale(1);
+            opacity: 0;
+        }
+    }
+    @media (min-width: 768px) {
+        .photo-item {
+            width: calc(33.33% - 20px);
+        }
+    }
+    @media (min-width: 1024px) {
+        .photo-item {
+            width: calc(25% - 20px);
+        }
+    }
+</style>
+</head>
+<body>
+<div class="desktop" id="desktop">
+    <div class="taskbar"></div>
+    <div class="folder-icon" onclick="openPhotoWindow()"></div>
+    <div class="folder-name">Momentos Felices</div>
+    <div class="capybara-icon" onclick="openCapybaraExplorer()"></div>
+    <div class="capybara-name">Capybara Explorer</div>
+    <div class="music-icon" onclick="openMusicWindow()"></div>
+    <div class="music-name">Música para mi princesa</div>
+    <div class="notepad-icon" onclick="openNotepadWindow()"></div>
+    <div class="notepad-name">Carta para mi dueña</div>
+    <div class="photo-window" id="photoWindow">
+        <div class="photo-window-header">
+            <span>Momentos Felices 💖</span>
+            <span class="close-button" onclick="closePhotoWindow()">✕</span>
+        </div>
+        <div class="photo-content">
+            <div class="photo-item">
+                <img alt="Un emoji de una carita feliz con ojos de corazón, estilo de dibujos animados, colores brillantes" src="https://i.postimg.cc/G3DQzF20/imagen-2024-09-21-135534085.png">
+                <div class="poem">
+                    <h3>"Una noche entre tus brazos" 💑</h3>
+                    <p>Una noche entre tus brazos quiero pasar,<br>
+                    La lluvia se escucha fuerte, no va a terminar.<br>
+                    Me embriago de amor al tu cuerpo tocar,<br>
+                    Tu amoroso ritmo me hace suspirar. 💕</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un gato naranja con expresión sorprendida, estilo de dibujos animados, fondo azul claro" src="https://i.postimg.cc/zX0RkvnZ/imagen-2024-09-21-140303657.png">
+                <div class="poem">
+                    <h3>"Saborearte como miel" 🍯</h3>
+                    <p>La noche se está nublando, quiero recorrer tu piel,<br>
+                    Saborearte como dulce de miel.<br>
+                    El amor nos hace sentir tan bien,<br>
+                    De mi cuerpo te voy a dar el cien. 💞</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un perro blanco con orejas marrones, estilo de dibujos animados, mirando de lado" src="https://i.postimg.cc/SsShVS63/imagen-2024-09-21-142038587.png">
+                <div class="poem">
+                    <h3>"Perderme en ti" 🌟</h3>
+                    <p>Déjame perderme en ti,<br>
+                    Sálvame, recuérdame vivir.<br>
+                    Tómame, no quiero desistir,<br>
+                    Llévame a encenderme por ti. 💖</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un panda sonriente, estilo de dibujos animados, fondo verde claro" src="https://i.postimg.cc/gJgPTC4J/imagen-2024-09-21-142120176.png">
+                <div class="poem">
+                    <h3>"Recuerdos de tu piel" 🌺</h3>
+                    <p>Mis labios recorren tu piel,<br>
+                    Eso te hace sentir bien.<br>
+                    Entre las sábanas, nos vamos a perder,<br>
+                    Nuestro amor nos lleva al placer. 💘</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un emoji de cara sonriente con ojos cerrados, estilo de dibujos animados, color amarillo brillante" src="https://i.postimg.cc/28bf0XWk/imagen-2024-09-21-142204314.png">
+                <div class="poem">
+                    <h3>"Mi debilidad" 💪❤️</h3>
+                    <p>Eres lo que me hace fuerte,<br>
+                    Pero a su vez, mi debilidad.<br>
+                    Me hace muy feliz tenerte,<br>
+                    Le das sentido a mi realidad. 💑</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un emoji de cara riendo a carcajadas, estilo de dibujos animados, color amarillo brillante" src="https://i.postimg.cc/Hkb1gc3F/imagen-2024-09-21-142236298.png">
+                <div class="poem">
+                    <h3>"La promesa en tus besos" 💋</h3>
+                    <p>Me pierdo en el calor de tu mirada,<br>
+                    Cada beso tuyo es una promesa sagrada.<br>
+                    Eres mi refugio en esta vida agitada,<br>
+                    La calma que llega, mi alma enamorada. 💞</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un emoji de cara con ojos de corazón, estilo de dibujos animados, color amarillo brillante" src="https://i.postimg.cc/054TKdBL/imagen-2024-09-21-142311906.png">
+                <div class="poem">
+                    <h3>"Bajo las estrellas" 🌠</h3>
+                    <p>Tu cuerpo y tu alma me llevan a Marte,<br>
+                    Viajemos por las estrellas de tu cuerpo.<br>
+                    Déjame tocar cada rincón y deleitarme,<br>
+                    Descubrir el infinito en tu universo. 💫</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un emoji de cara con ojos en espiral, estilo de dibujos animados, color amarillo brillante" src="https://i.postimg.cc/15NLGVx4/imagen-2024-09-21-142359014.png">
+                <div class="poem">
+                    <h3>"Eres mi refugio" 🏡</h3>
+                    <p>Oh, mi amor, tenerte cerca es un placer,<br>
+                    Siento tu calor en la noche fría.<br>
+                    Quiero abrazarte, calmar tu sed,<br>
+                    Hacerte el amor hasta el amanecer. 💕</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un emoji de cara guiñando un ojo, estilo de dibujos animados, color amarillo brillante" src="https://i.postimg.cc/3NpQxkYy/imagen-2024-09-21-142803352.png">
+                <div class="poem">
+                    <h3>"Más de ti" 💖</h3>
+                    <p>Quiero más de ti, más de ti,<br>
+                    Es que me encantas, es evidente.<br>
+                    Tú te ganas mi amor cada día,<br>
+                    Y eso te lo diré toda la vida. 💘</p>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img alt="Un emoji de cara pensativa, estilo de dibujos animados, color amarillo brillante" src="https://i.postimg.cc/rFXLYNN5/imagen-2024-09-21-142844172.png">
+                <div class="poem">
+                    <h3>"Solo mía" 💑</h3>
+                    <p>Recuerdo ese momento, con nostalgia y alegría,<br>
+                    Cuando te pedí que fueras solo mía.<br>
+                    Tus ojos brillaban, reflejaban algo más,<br>
+                    Un sentimiento puro, difícil de explicar. 💕</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="music-window" id="musicWindow">
+        <div class="music-window-header">
+            <span>Música para mi princesa</span>
+            <span class="close-button" onclick="closeMusicWindow()">✕</span>
+        </div>
+        <div class="music-content">
+            <div class="video-grid">
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/sdNjlQsuRQQ?si=jMhWZxPV91BcvIe5" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title">Amarte</div>
+                        <div class="video-channel">Canal de Música Romántica</div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/GSQnCUU7HC8?si=xtq8lf9_kZhMcyD4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title">Hacerte mia</div>
+                        <div class="video-channel">Baladas de Amor</div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/M4NKhULC4gA?si=TbzWMHe84ig8TyjK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title">Mas de ti</div>
+                        <div class="video-channel">Canciones para Enamorados</div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/QspL2ovNFGM?si=6T-IjsIjbUcwMueu" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title">Sentir</div>
+                        <div class="video-channel">Melodías del Corazón</div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/zomVvh4akEg?si=DIxDasIy3WxeKce_" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title">Mi debilidad</div>
+                        <div class="video-channel">Susurros de Amor</div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/SL7tnJfaFxQ?si=G7pNCh7K4lcGZic0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title">Noche nublada</div>
+                        <div class="video-channel">Serenatas Nocturnas</div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/t9oe43DNNg8?si=vV02-TXUamvQNzEv" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title">Dame tu calor</div>
+                        <div class="video-channel">Ritmos del Corazón</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="notepad-window" id="notepadWindow">
+        <div class="notepad-window-header">
+            <span>Carta para miDueña</span>
+            <span class="close-button" onclick="closeNotepadWindow()">✕</span>
+        </div>
+        <div class="notepad-content">
+            <p>Amor, esta es una representación de mi mente, de los momentos bonitos que guardo contigo 💖. Es la música que hice para ti, porque no encontraba canciones que representaran todo el amor que me haces sentir 🎶❤️. Esto es para ti, mi cielo, te amo demasiado, mi corazón hermosa 💕. Eres lo mejor de mi vida, lo que más feliz me hace 🥰. Eres la persona con la que quiero vivir toda mi vida 👩‍❤️‍👨, quiero despertar y ver tu hermoso rostro de bebé 😍. Quiero reír contigo, quiero abrazarte, quiero hacerte el amor antes de dormir 😘. Quiero todo contigo, mi amor 💞. Te amo demasiado, mi princesa, dueña, mamasota rica de mi vidaaaa 💋🔥.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+const desktop = document.getElementById('desktop');
+const photoWindow = document.getElementById('photoWindow');
+const musicWindow = document.getElementById('musicWindow');
+const notepadWindow = document.getElementById('notepadWindow');
+const folderIcon = document.querySelector('.folder-icon');
+const musicIcon = document.querySelector('.music-icon');
+const capybaraIcon = document.querySelector('.capybara-icon');
+const notepadIcon = document.querySelector('.notepad-icon');
+
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.innerHTML = Math.random() < 0.5 ? '💖' : '💜';
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+    desktop.appendChild(heart);
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+setInterval(createHeart, 300);
+
+function openPhotoWindow() {
+    createFlyingImages(event, '.folder-icon');
+    setTimeout(() => {
+        photoWindow.style.display = 'block';
+    }, 1000);
+}
+
+function closePhotoWindow() {
+    photoWindow.style.display = 'none';
+}
+
+function openMusicWindow() {
+    musicWindow.style.display = 'block';
+    createFlyingHearts(event, '.music-icon');
+}
+
+function closeMusicWindow() {
+    musicWindow.style.display = 'none';
+}
+
+function openNotepadWindow() {
+    notepadWindow.style.display = 'block';
+    createFlyingHearts(event, '.notepad-icon');
+}
+
+function closeNotepadWindow() {
+    notepadWindow.style.display = 'none';
+}
+
+function createFlyingImages(event, iconSelector) {
+    const icon = document.querySelector(iconSelector);
+    const rect = icon.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const images = [
+        'https://i.postimg.cc/G3DQzF20/imagen-2024-09-21-135534085.png',
+        'https://i.postimg.cc/zX0RkvnZ/imagen-2024-09-21-140303657.png',
+        'https://i.postimg.cc/SsShVS63/imagen-2024-09-21-142038587.png',
+        'https://i.postimg.cc/gJgPTC4J/imagen-2024-09-21-142120176.png',
+        'https://i.postimg.cc/28bf0XWk/imagen-2024-09-21-142204314.png'
+    ];
+
+    for (let i = 0; i < 5; i++) {
+        const img = document.createElement('img');
+        img.src = images[i];
+        img.classList.add('flying-image');
+        img.style.left = centerX + 'px';
+        img.style.top = centerY + 'px';
+        img.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+        img.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+        desktop.appendChild(img);
+        setTimeout(() => {
+            img.remove();
+        }, 1000);
+    }
+}
+
+function createFlyingHearts(event, iconSelector) {
+    const icon = document.querySelector(iconSelector);
+    const rect = icon.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    for (let i = 0; i < 5; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = Math.random() < 0.5 ? '💖' : '💜';
+        heart.classList.add('flying-image');
+        heart.style.left = centerX + 'px';
+        heart.style.top = centerY + 'px';
+        heart.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+        heart.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+        desktop.appendChild(heart);
+        setTimeout(() => {
+            heart.remove();
+        }, 1000);
+    }
+}
+
+function openCapybaraExplorer() {
+    window.open('https://ryunner.github.io', '_blank');
+    createFlyingHearts(event, '.capybara-icon');
+}
+
+// Ajustar la altura del escritorio en dispositivos móviles
+function adjustDesktopHeight() {
+    const taskbar = document.querySelector('.taskbar');
+    if (window.innerWidth <= 768) {
+        desktop.style.height = `calc(100vh - ${taskbar.offsetHeight}px)`;
+    } else {
+        desktop.style.height = '100vh';
+    }
+}
+
+window.addEventListener('resize', adjustDesktopHeight);
+adjustDesktopHeight();
+
+document.addEventListener('DOMContentLoaded', populateMusicWindow);
+function populateMusicWindow() {
+    const videoGrid = document.querySelector('.video-grid');
+    const videos = [
+        {
+            src: "https://www.youtube.com/embed/sdNjlQsuRQQ?si=jMhWZxPV91BcvIe5",
+            title: "Amarte",
+            channel: "Canal de Música Romántica"
+        },
+        {
+            src: "https://www.youtube.com/embed/GSQnCUU7HC8?si=xtq8lf9_kZhMcyD4",
+            title: "Hacerte mia",
+            channel: "Baladas de Amor"
+        },
+        {
+            src: "https://www.youtube.com/embed/M4NKhULC4gA?si=TbzWMHe84ig8TyjK",
+            title: "Mas de ti",
+            channel: "Canciones para Enamorados"
+        },
+        {
+            src: "https://www.youtube.com/embed/QspL2ovNFGM?si=6T-IjsIjbUcwMueu",
+            title: "Sentir",
+            channel: "Melodías del Corazón"
+        },
+        {
+            src: "https://www.youtube.com/embed/zomVvh4akEg?si=DIxDasIy3WxeKce_",
+            title: "Mi debilidad",
+            channel: "Susurros de Amor"
+        },
+        {
+            src: "https://www.youtube.com/embed/SL7tnJfaFxQ?si=G7pNCh7K4lcGZic0",
+            title: "Noche nublada",
+            channel: "Serenatas Nocturnas"
+        },
+        {
+            src: "https://www.youtube.com/embed/t9oe43DNNg8?si=vV02-TXUamvQNzEv",
+            title: "Dame tu calor",
+            channel: "Ritmos del Corazón"
+        }
+    ];
+
+    videos.forEach(video => {
+        const videoItem = document.createElement('div');
+        videoItem.className = 'video-item';
+        videoItem.innerHTML = `
+            <iframe src="${video.src}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="video-info">
+                <div class="video-title">${video.title}</div>
+                <div class="video-channel">${video.channel}</div>
+            </div>
+        `;
+        videoGrid.appendChild(videoItem);
+    });
+}
+</script>
+</body>
+</html>
